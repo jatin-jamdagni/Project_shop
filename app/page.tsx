@@ -1,4 +1,5 @@
 import { ProjectInterface } from "@/common.types";
+import ProjectCard from "@/components/ProjectCard";
 import { fetchAllProjects } from "@/lib/actions";
 
 type ProjectSearch = {
@@ -30,7 +31,18 @@ const Home = async () => {
     return (
         <section className="flex-start flex-col paddings mb-16">
             <h1>categories</h1>
-            <h1>posts</h1>
+            <section className="projects-grid">
+                {projectToDisplay.map(({ node }: { node: ProjectInterface }) => (
+                    <ProjectCard
+                        key={node?.id}
+                        id={node?.id}
+                        image={node?.image}
+                        title={node?.title}
+                        name={node?.createdBy?.name}
+                        avatarUrl={node?.createdBy?.avatarUrl}
+                        userId={node?.createdBy?.id} />
+                ))}
+            </section>
             <h1>LoadMore</h1>
         </section>
     )
