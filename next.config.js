@@ -1,4 +1,3 @@
-/** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
     domains: ["lh3.googleusercontent.com", "res.cloudinary.com", "task.com"],
@@ -11,6 +10,7 @@ const nextConfig = {
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
+  productionBrowserSourceMaps: true, // Enable detailed error messages in production
 };
 
 module.exports = nextConfig;
