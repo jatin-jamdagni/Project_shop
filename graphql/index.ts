@@ -37,7 +37,7 @@ export const deleteProjectMutation = `
     }
   }
 `;
-      
+
 export const createUserMutation = `
 	mutation CreateUser($input: UserCreateInput!) {
 		userCreate(input: $input) {
@@ -47,7 +47,7 @@ export const createUserMutation = `
 				avatarUrl
 				description
 				githubUrl
-				linkedinUrl
+				linkedInUrl
 				id
 			}
 		}
@@ -57,6 +57,36 @@ export const createUserMutation = `
 export const projectsQuery = `
   query getProjects($category: String, $endcursor: String) {
     projectSearch(first: 8, after: $endcursor, filter: {category: {eq: $category}}) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+      edges {
+        node {
+          title
+          githubUrl
+          description
+          liveSiteUrl
+          id
+          image
+          category
+          createdBy {
+            id
+            email
+            name
+            avatarUrl
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const getAllProjectsQuery = `
+  query getAllProjects($endcursor: String) {
+    projectSearch(first: 8, after: $endcursor) {
       pageInfo {
         hasNextPage
         hasPreviousPage
@@ -113,11 +143,11 @@ export const getUserQuery = `
       avatarUrl
       description
       githubUrl
-      linkedinUrl
+      linkedInUrl
     }
   }
 `;
-      
+
 export const getProjectsOfUserQuery = `
   query getUserProjects($id: ID!, $last: Int = 4) {
     user(by: { id: $id }) {
@@ -127,7 +157,7 @@ export const getProjectsOfUserQuery = `
       description
       avatarUrl
       githubUrl
-      linkedinUrl
+      linkedInUrl
       projects(last: $last) {
         edges {
           node {
